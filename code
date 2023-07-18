@@ -1,0 +1,244 @@
+#include <bits/stdc++.h> 
+#include <ctime>
+using namespace std; 
+//IN THIS PROGRAM, INHERITANCE, CLASSES AND OBJECTS, AND SEARCH ALGORITHM IS USED
+// CODE GET USER'S NAME AND ID USING OBJECTS AND CLASSES
+class Name 
+{ 
+    public: 
+    string name; 
+    int id; 
+    
+    void printname(); 
+    
+    void printid() 
+    { 
+        cout << "ID no.: " << id; 
+    } 
+}; 
+void Name::printname() 
+{ 
+    cout <<"\n"<< "Username: " << name;  
+} 
+
+// CODE TO ASK USER'S LAPTOP BRAND INTEREST USING BINARY SEARCH
+int binarySearchString(string arr[], string x, int n) {
+   int lower = 0;
+   int upper = n - 1;
+   while (lower <= upper) {
+      int mid = lower + (upper - lower) / 2;
+      int res;
+      if (x == (arr[mid]))
+         res = 0;
+      if (res == 0)
+         return mid;
+      if (x > (arr[mid]))
+         lower = mid + 1;
+      else
+         upper = mid - 1;
+   }
+   return -1;
+}
+
+// CODE TO COMPUTE THE TOTAL COST USING INHERITANCE
+class Shop {
+    
+ public:
+ void setItem(int i) {item = i;
+ }
+ void setQuantity(int q) { quantity = q;
+ }
+ void setItem2(int i2) { item2 = i2;
+ }
+ 
+ protected:
+ int item;
+ int quantity;
+ float item2;
+};
+class TotalCost {
+ public:
+ int getCost(int price) {
+ return price * 0.10 + price;
+ }
+};
+class Subtotal: public Shop, public TotalCost{
+ public:
+ int getSubtotal() {
+ return (item * quantity);
+ }
+};
+class Totalcharge: public Shop, public TotalCost{
+ public:
+ int getotalcharge() {
+ return (item * quantity  * 0.10);
+ }
+};
+class TotalCost2 {
+ public:
+ int getCost2(int price2) {
+    float item2;
+ return price2 * 0.10 + price2;
+ }
+};
+class Subtotal2: public Shop, public TotalCost2{
+ public:
+ int getSubtotal2() {
+ return (item * quantity +item2);
+ }
+};
+class Totalcharge2: public Shop, public TotalCost2{
+ public:
+ int getotalcharge2() {
+ return ((item * quantity + item2)  * 0.10);
+ }
+};
+
+int main(){ 
+
+float price,price2,charge, charge2, change, payment, item, item2, quantity,totalC,totalC2, acer = 450,  asus = 400, dell = 480, hp = 650, lenovo = 500, msi = 570, razer = 1000, toshiba = 600, cooler =100, mouse=200, stand = 300, headphones = 650;
+time_t now = time(0);
+char* dt = ctime(&now);    
+char store = 'Y';
+
+// CODE FOR USER IDENTIFICATION
+    Name obj1; 
+    cout << "Please enter your name: ";
+    cin >> obj1.name;
+    cout << "Please enter your id(any): ";
+    cin >> obj1.id;
+      
+    obj1.printname(); 
+    cout << endl; 
+      
+    obj1.printid(); 
+    
+// CODE TO SEARCH FOR AVAILABLE LAPTOPS
+    string arr[] = { "Acer", "Asus" ,"Dell", "Hp", "Lenovo", "MSI", "Razer", "Toshiba", "acer", "asus", "dell", "hp", "lenovo", "msi", "razer", "toshiba"};
+    string x;
+    int n=16;
+    cout <<"\n\n"<< "WELCOME TO OUR SHOP " <<obj1.name<< "!"<<endl;
+    cout <<"\n"<< "(PLEASE NOTE: An additional 10 percent will be charged from your total cost for a pandemic fund)" <<endl;
+    
+    
+    while (store == 'Y'|| store == 'y'){
+        cout <<"\n"<<"Which brand of laptop are you interested in?: ";
+        cin >> x;
+        int result = binarySearchString(arr, x, n);
+            if(result == -1){
+                cout<<"\n"<<"We regret to inform you that we are out of stock with that brand. Please come back again.";
+                return 0;
+            }else{
+                cout<<"\n"<<"GOOD NEWS! We have a stock available";
+            }
+        
+        cout <<"\n\n" << "-----------------------------Menu list------------------------------- "<<endl;
+        cout <<"\n1-Acer($450)     2-Asus($400)     3-Dell($480)     4-Hp($650)"<<endl;
+        cout << "\n5-Lenovo($500)   6-MSI($570)      7-Razer($1000)   8-Toshiba($600)"<<endl;
+        cout <<"\n"<< "Enter the item number of your choice above: ";
+        cin >> item;
+        if (item==1){
+            item = acer;
+        }   else if (item==2){
+            item = asus;
+        }   else if (item==3){
+            item = dell;
+        }   else if (item==4){
+            item = hp;
+        }   else if (item==5){
+            item = lenovo;
+        }   else if (item==6){
+            item = msi;
+        }   else if (item==7){
+            item = razer;
+        }   else if (item==8){
+            item = toshiba;
+        }   else{
+            cout <<"\n"<< "Please only choose the available items";
+            return(0);
+        }
+        
+    // CODE TO PRINT RECEIPT
+        Subtotal Sub;
+        Sub.setItem(item);
+        cout << "Enter quantity of items: ";
+        cin >> quantity;
+        Sub.setQuantity(quantity);
+        price = Sub.getSubtotal();
+        
+        string ans;
+        cout << "\nWould you like to purchase accessories for your purshased laptop? (Y/N): ";
+        cin >> ans;
+        
+        if (ans == "Y"){
+            cout <<"\n\n" << "-----------------------------Accessories list------------------------------- "<<endl;
+            cout <<"\n1-cooler($100)     2-mouse($200)     3-stand($300)     4-headphones($650)"<<endl;
+            cout << "\nEnter the item number of the accessories above(please only choose one): ";
+            cin >> item2;
+            if (item2==1){
+                item2 = cooler;
+            }   else if(item2==2){
+                item2 = mouse;
+            }   else if (item2==3){
+                item2 = stand;
+            }   else if (item2==4){
+                item2 = headphones;
+            }   else{
+                cout <<"\n"<< "Please only choose the available items";
+                return(0);
+            }
+            
+            Subtotal2 Sub2;
+            Sub2.setItem2(item2);
+            price2 = Sub2.getSubtotal2();
+            
+            Totalcharge2 tc2;
+            tc2.setItem(item);
+            tc2.setQuantity(quantity);
+            tc2.setItem2(item2);
+            charge2 = tc2.getotalcharge2();
+            
+            cout <<"\n"<<"Please enter the amount of your payment: ";
+            cin >> payment;
+            
+            totalC2 = payment - (Sub.getCost(price) + Sub2.getCost2(price2));
+            if (totalC2 >= 0){
+                cout <<"\n\n" << "----------OFFICIAL RECEIPT----------";
+                cout <<"\n\n"<< "Sub total:                 $" << Sub.getSubtotal() + item2 <<".00"<<endl;
+                cout <<"\n"<< "Total charge(10%):         $" << tc2.getotalcharge2() <<".00"<<endl;
+                cout <<"\n"<< "Payment Recieved:          $" << payment <<".00"<<endl;
+                cout << "\nTotal cost:                $" << Sub.getCost(price) + Sub2.getCost2(price2)<<".00"<<endl;
+                cout << "                           ---------"<<endl;
+                cout << "\nTotal change:              $" << totalC2 <<".00"<<endl;
+                cout <<"\n" << "Date: " << dt << endl;
+            }else{
+                cout  << "\nYOUR PAYMENT IS NOT ENOUGH!";
+            } 
+    
+        }   else{
+            Totalcharge tc;
+            tc.setItem(item);
+            tc.setQuantity(quantity);
+            charge = tc.getotalcharge();
+            
+            cout <<"\n"<<"Please enter the amount of your payment: ";
+            cin >> payment;
+            
+            totalC = payment - Sub.getCost(price);
+            if (totalC >= 0){
+                cout <<"\n\n" << "----------OFFICIAL RECEIPT----------";
+                cout <<"\n\n"<< "Sub total:                 $" << Sub.getSubtotal() <<".00"<<endl;
+                cout <<"\n"<< "Total charge(10%):         $" << tc.getotalcharge() <<".00"<<endl;
+                cout <<"\n"<< "Payment Recieved:          $" << payment <<".00"<<endl;
+                cout << "\nTotal cost:                $" << Sub.getCost(price) <<".00"<<endl;
+                cout << "                           ---------"<<endl;
+                cout << "\nTotal change:              $" << totalC <<".00"<<endl;
+                cout <<"\n" << "Date: " << dt << endl;
+            }else{
+                cout  << "\nYOUR PAYMENT IS NOT ENOUGH!";
+            } 
+        }   cout << "\n\nWould you like to continue purchasing from our store? (Y/N): ";
+            cin >> store;
+    }       cout <<"\n"<< "Thank you for shopping please visit us again!";
+    return 0; 
+}
